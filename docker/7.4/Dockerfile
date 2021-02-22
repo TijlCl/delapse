@@ -41,9 +41,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN apt-get update \
-    && apt-get install -y php-xdebug \
+    && apt-get install -y php7.4-xdebug \
     && echo "[XDebug]" > /etc/php/7.4/cli/php.ini \
-    && echo "zend_extension="$(find /usr/lib/php/20200930/ -name xdebug.so)" > /etc/php/7.4/cli/php.ini" \
     && echo "xdebug.mode = debug" >> /etc/php/7.4/cli/php.ini \
     && echo "xdebug.start_with_request = yes" >> /etc/php/7.4/cli/php.ini \
     && echo "xdebug.discover_client_host = false" >> /etc/php/7.4/cli/php.ini \
