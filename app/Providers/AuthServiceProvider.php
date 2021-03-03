@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Fruitcake\Cors\HandleCors;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -26,12 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes();
-
-        Passport::hashClientSecrets();
-
-        Passport::tokensExpireIn(now()->addWeek());
-        Passport::refreshTokensExpireIn(now()->addWeek());
-        Passport::personalAccessTokensExpireIn(now()->addWeek());
+        Passport::routes(null, ['middleware' => [ HandleCors::class ]]);
     }
 }
