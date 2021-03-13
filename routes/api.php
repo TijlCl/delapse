@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,14 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/auth')->middleware(['auth:api'])->group(function () {
         Route::get('/user', 'AuthController@user');
         Route::post('/logout', 'AuthController@logout');
+    });
+
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('chats', 'ChatController')->only(['show']);
+        Route::post('chats/{chat}/send', 'ChatController@sendMessage');
+
+        Route::resource('friends', 'FriendController')->only(['index']);
     });
 });
 
