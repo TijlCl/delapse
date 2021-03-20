@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRequest;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
 
 
-    public function store()
+    public function store(StoreEventRequest $request)
     {
         $test = 0;
     }

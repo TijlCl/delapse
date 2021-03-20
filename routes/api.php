@@ -29,6 +29,11 @@ Route::prefix('/v1')->group(function () {
         Route::post('chats/{chat}/send', 'ChatController@sendMessage');
 
         Route::resource('friends', 'FriendController')->only(['index']);
+
+
+        Route::resource('/events', 'EventController')->only([
+            'store', 'update', 'destroy'
+        ]);
     });
 });
 
