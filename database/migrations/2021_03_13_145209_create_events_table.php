@@ -16,10 +16,11 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('image_id')->constrained();
             $table->string('title');
             $table->string('date');
             $table->string('description');
-            $table->string('image');
+            $table->enum('tag', ['Private', 'Work', 'School']);
             $table->timestamps();
         });
     }

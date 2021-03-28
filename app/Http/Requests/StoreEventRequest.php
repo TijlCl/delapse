@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreEventRequest extends FormRequest
 {
@@ -28,7 +30,7 @@ class StoreEventRequest extends FormRequest
             'title' => 'required|string|max:255',
             'date' => 'required|date',
             'description' => 'required|string|max:255',
-            'image' => 'required|string|max:255',
+            'tag' => 'required|' . Rule::in(Event::$tags),
         ];
 
         return $rules;

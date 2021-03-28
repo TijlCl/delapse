@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventResource extends JsonResource
@@ -17,9 +18,10 @@ class EventResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'date' => $this->date,
+            'date' => Carbon::parse($this->date)->format('D d-m-Y'),
             'description' => $this->description,
-            'image' => $this->image
+            'image' => $this->image->name,
+            'tag' => $this->tag,
         ];
     }
 }
