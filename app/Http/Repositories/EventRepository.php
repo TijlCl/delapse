@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Http\DTO\EventDTO;
 use App\Models\Event;
+use Carbon\Carbon;
 
 class EventRepository extends BaseRepository
 {
@@ -21,9 +22,9 @@ class EventRepository extends BaseRepository
      * @param array $with
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getEventsOfUser(int $userId, array $with = ['image'])
+    public function getEventsOfUser(int $userId, array $with = [])
     {
-        return Event::with($with)->where('user_id', $userId)->get();
+        return Event::with($with)->where([['user_id', $userId], ['date', '>=', Carbon::now()->toDateString()]])->orderBy('date')->limit(10)->get();
     }
 
     /**

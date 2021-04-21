@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('image_id')->constrained();
             $table->string('title');
-            $table->string('date');
+            $table->date('date');
             $table->string('description');
             $table->enum('tag', ['Private', 'Work', 'School']);
             $table->timestamps();

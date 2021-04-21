@@ -33,11 +33,14 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $events = $this->eventRepository->getEventsOfUser(Auth::id());
+        $events = $this->eventRepository->getEventsOfUser(Auth::id(), ['image']);
         return EventResource::collection($events);
     }
 
-
+    /**
+     * @param StoreEventRequest $request
+     * @return EventResource
+     */
     public function store(StoreEventRequest $request)
     {
         // get random image for the new event
