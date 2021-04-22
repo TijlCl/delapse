@@ -20,7 +20,7 @@ class FriendRepository extends BaseRepository
      * @param array $with
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getFriendsOfUser(int $userId, array $with = ['friend'])
+    public function getFriendsOfUser(int $userId, array $with = ['friend', 'chat.lastMessage'])
     {
         return Friend::with($with)
             ->where('user_id', $userId)

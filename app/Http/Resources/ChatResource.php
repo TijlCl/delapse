@@ -16,7 +16,8 @@ class ChatResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'messages' => MessageResource::collection($this->whenLoaded('messages'))
+            'messages' => MessageResource::collection($this->whenLoaded('messages')),
+            'lastMessage' => new MessageResource($this->whenLoaded('lastMessage'))
         ];
     }
 }

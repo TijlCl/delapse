@@ -31,4 +31,13 @@ class Friend extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     *
+     * @return BelongsTo
+     */
+    public function chat()
+    {
+        return $this->belongsTo(Chat::class);
+    }
 }

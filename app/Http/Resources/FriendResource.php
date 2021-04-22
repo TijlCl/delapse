@@ -17,6 +17,7 @@ class FriendResource extends JsonResource
     {
         return [
             'user' => new UserResource($this->whenLoaded('friend')),
+            'chat' => new ChatResource($this->whenLoaded('chat')),
             'acceptedAt' => $this->accepted_at,
         ];
     }

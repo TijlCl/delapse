@@ -19,11 +19,11 @@ class ChatMesssageDTO extends DataTransferObject
     /**
      * @param array $data
      */
-    public function __construct(int $to, array $data)
+    public function __construct(int $chatId, array $data)
     {
         $this->from = Auth::id();
-        $this->to = $to;
-        $this->chatId = $data['chatId'];
+        $this->to = $data['to'];
+        $this->chatId = $chatId;
         $this->body = $data['message'];
         $this->sendAt = Carbon::now();
     }

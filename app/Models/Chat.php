@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Chat extends Model
 {
@@ -37,6 +38,16 @@ class Chat extends Model
      */
     public function messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class)->orderByDesc('send_at');
+    }
+
+    /**
+     *
+     * @return hasOne
+     *
+     */
+    public function lastMessage()
+    {
+        return $this->hasOne(Message::class)->latest('send_at')->limit(1);
     }
 }
