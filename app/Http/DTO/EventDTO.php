@@ -13,7 +13,7 @@ class EventDTO extends DataTransferObject
     public string $description;
     public ?int $id;
     public int $userId;
-    public int $imageId;
+    public ?int $imageId;
     public string $date;
     public string $tag;
 
@@ -28,7 +28,7 @@ class EventDTO extends DataTransferObject
         $this->description = $data['description'];
         $this->id = $data['id'] ?? null;
         $this->userId = Auth::id();
-        $this->imageId = $data['imageId'];
+        $this->imageId = $data['imageId'] ?? null;
         $this->date = Carbon::createFromDate($data['date'])->toDateString();
         $this->tag = $data['tag'];
     }

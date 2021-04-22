@@ -32,7 +32,7 @@ Route::prefix('/v1')->group(function () {
 
 
         Route::resource('/events', 'EventController')->only([
-            'index', 'store', 'update', 'destroy'
+            'index', 'show', 'store', 'update', 'destroy'
         ]);
     });
 });

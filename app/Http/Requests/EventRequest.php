@@ -6,7 +6,7 @@ use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreEventRequest extends FormRequest
+class EventRequest extends FormRequest
 {
 
     /**
