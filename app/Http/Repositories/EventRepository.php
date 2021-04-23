@@ -64,4 +64,9 @@ class EventRepository extends BaseRepository
         $event->save();
         return $event;
     }
+
+    public function deleteEvent(int $eventId)
+    {
+        Event::destroy($eventId);
+    }
 }

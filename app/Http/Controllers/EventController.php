@@ -24,7 +24,7 @@ class EventController extends Controller
     public function __construct(EventRepository $eventRepository, ImageRepository $imageRepository)
     {
         // middleware
-        $this->middleware('event_ownership')->only(['show', 'update']);
+        $this->middleware('event_ownership')->only(['show', 'update', 'destroy']);
 
         // repositories
         $this->eventRepository = $eventRepository;
@@ -72,9 +72,9 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    public function destroy()
+    public function destroy(int $eventId)
     {
-
+        $this->eventRepository->deleteEvent($eventId);
     }
 
 }
