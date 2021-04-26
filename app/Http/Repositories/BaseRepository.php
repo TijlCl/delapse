@@ -35,11 +35,12 @@ class BaseRepository implements RepositoryInterface
 
     /**
      * @param $id
+     * @param array $with
      * @return Model
      */
-    public function find($id): ?Model
+    public function find($id, array $with = []): ?Model
     {
-        return $this->model->find($id);
+        return $this->model->with($with)->find($id);
     }
 
     /**

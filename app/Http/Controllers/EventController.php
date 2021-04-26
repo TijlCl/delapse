@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\DTO\EventDTO;
 use App\Http\Repositories\EventRepository;
 use App\Http\Repositories\ImageRepository;
-use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\EventRequest;
 use App\Http\Resources\EventResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +23,10 @@ class EventController extends Controller
      */
     public function __construct(EventRepository $eventRepository, ImageRepository $imageRepository)
     {
+        // middleware
+        $this->middleware('event_ownership')->only(['show', 'update', 'destroy']);
+
+        // repositories
         $this->eventRepository = $eventRepository;
         $this->imageRepository = $imageRepository;
     }
@@ -38,10 +42,21 @@ class EventController extends Controller
     }
 
     /**
-     * @param StoreEventRequest $request
+     * @param Request $request
+     * @param int $eventId
      * @return EventResource
      */
-    public function store(StoreEventRequest $request)
+    public function show(Request $request, int $eventId)
+    {
+        $event = $this->eventRepository->find($eventId, ['image']);
+        return new EventResource($event);
+    }
+
+    /**
+     * @param EventRequest $request
+     * @return EventResource
+     */
+    public function store(EventRequest $request)
     {
         // get random image for the new event
         $image = $this->imageRepository->getRandom();
@@ -50,14 +65,16 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    public function update()
+    public function update(EventRequest $request, int $eventId)
     {
-
+        $eventDTO = new EventDTO($request->all() + ['id' => $eventId]);
+        $event = $this->eventRepository->updateEvent($eventDTO);
+        return new EventResource($event);
     }
 
-    public function destroy()
+    public function destroy(int $eventId)
     {
-
+        $this->eventRepository->deleteEvent($eventId);
     }
 
 }

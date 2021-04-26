@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\DTO\EventDTO;
 use App\Models\Event;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class EventRepository extends BaseRepository
 {
@@ -43,5 +44,29 @@ class EventRepository extends BaseRepository
         $event->image()->associate($DTO->imageId);
         $event->save();
         return $event;
+    }
+
+    /**
+     * @param EventDTO $DTO
+     * @return Event
+     */
+    public function updateEvent(EventDTO $DTO): Model
+    {
+        $event = $this->find($DTO->id);
+
+        $event->fill([
+            'title' => $DTO->title,
+            'description' => $DTO->description,
+            'date' => $DTO->date,
+            'tag' => $DTO->tag,
+        ]);
+
+        $event->save();
+        return $event;
+    }
+
+    public function deleteEvent(int $eventId)
+    {
+        Event::destroy($eventId);
     }
 }
