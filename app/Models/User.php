@@ -52,14 +52,28 @@ class User extends Authenticatable
             ->orWhere('secondary_user_id', '=', $this->id);
     }
 
+    /**
+     * @return HasMany
+     */
     public function friends()
     {
         return $this->hasMany(Friend::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class);
     }
 
 }
