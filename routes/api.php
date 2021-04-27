@@ -36,6 +36,7 @@ Route::prefix('/v1')->group(function () {
         ]);
 
         Route::get('challenges/active', 'ChallengeController@getActiveChallenges');
+        Route::get('challenge-user/{challenge_user}', 'ChallengeController@show');
     });
 });
 

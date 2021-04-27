@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'event_ownership' => \App\Http\Middleware\EventOwnership::class,
+        'challenge_user_ownership' => \App\Http\Middleware\ChallengeUserOwnership::class,
     ];
 }
