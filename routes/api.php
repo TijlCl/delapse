@@ -34,6 +34,8 @@ Route::prefix('/v1')->group(function () {
         Route::resource('/events', 'EventController')->only([
             'index', 'show', 'store', 'update', 'destroy'
         ]);
+
+        Route::get('challenges/active', 'ChallengeController@getActiveChallenges');
     });
 });
 

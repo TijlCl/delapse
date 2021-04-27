@@ -33,4 +33,9 @@ class ChallengeUser extends Pivot
             $challengeUser->invalid_at = Carbon::now()->addWeek();
 		});
     }
+
+    public function getIsCompletedAttribute()
+    {
+        return !is_null($this->completed_at);
+    }
 }
