@@ -35,6 +35,9 @@ Route::prefix('/v1')->group(function () {
         Route::resource('/events', 'EventController')->only([
             'index', 'show', 'store', 'update', 'destroy'
         ]);
+
+        Route::get('users/getByUsername', 'UserController@getByUsername');
+        Route::resource('users', 'UserController')->only(['show']);
     });
 });
 
