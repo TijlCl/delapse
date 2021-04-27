@@ -62,4 +62,14 @@ class User extends Authenticatable
         return $this->hasMany(Event::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function challenges()
+    {
+        return $this->belongsToMany(Challenge::class, 'challenge_user')
+            ->withTimestamps()
+            ->withPivot(['image', 'description', 'completed_at', 'invalid_at'])
+            ->using(ChallengeUser::class);
+    }
 }
