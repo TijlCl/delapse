@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChallengeResource extends JsonResource
+class ChallengeUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class ChallengeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'completed' => $this->getIsCompletedAttribute(),
             'description' => $this->description,
-            'image' => $this->image->name,
+            'image' => $this->image,
+            'challenge' => new ChallengeResource($this->challenge),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\ChallengeUserRepository;
 use App\Http\Resources\ChallengeResource;
+use App\Http\Resources\ChallengeUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,12 +23,12 @@ class ChallengeController extends Controller
 
     /**
      * @param int $challengeUserId
-     * @return ChallengeResource
+     * @return ChallengeUserResource
      */
-    public function show(int $challengeUserId)
+    public function show(int $challengeUserId): ChallengeUserResource
     {
         $challenge = $this->challengeUserRepository->find($challengeUserId, ['challenge.image']);
-        return new ChallengeResource($challenge);
+        return new ChallengeUserResource($challenge);
     }
 
     /**
@@ -38,6 +39,6 @@ class ChallengeController extends Controller
     {
         $challenges = $this->challengeUserRepository->getWeeklyChallenges(Auth::id(), ['challenge.image']);
 
-        return ChallengeResource::collection($challenges);
+        return ChallengeUserResource::collection($challenges);
     }
 }
