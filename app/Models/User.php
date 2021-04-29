@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -52,11 +53,17 @@ class User extends Authenticatable
             ->orWhere('secondary_user_id', '=', $this->id);
     }
 
+    /**
+     * @return HasMany
+     */
     public function friends()
     {
         return $this->hasMany(Friend::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function events()
     {
         return $this->hasMany(Event::class);
@@ -71,5 +78,21 @@ class User extends Authenticatable
             ->withTimestamps()
             ->withPivot(['image', 'description', 'completed_at', 'invalid_at'])
             ->using(ChallengeUser::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsFriendAttribute()
+    {
+        return $this->friends()->where('friend_id', 3)->exists();
     }
 }

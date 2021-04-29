@@ -29,6 +29,7 @@ Route::prefix('/v1')->group(function () {
         Route::post('chats/{chat}/send', 'ChatController@sendMessage');
 
         Route::resource('friends', 'FriendController')->only(['index']);
+        Route::resource('achievements', 'AchievementController')->only(['index']);
 
 
         Route::resource('/events', 'EventController')->only([
@@ -38,6 +39,9 @@ Route::prefix('/v1')->group(function () {
         Route::get('challenges/active', 'ChallengeController@getActiveChallenges');
         Route::get('challenge-user/{challenge_user}', 'ChallengeController@show');
         Route::post('challenge-user/{challenge_user}/complete', 'ChallengeController@completeChallenge');
+        
+        Route::get('users/getByUsername', 'UserController@getByUsername');
+        Route::resource('users', 'UserController')->only(['show']);
     });
 });
 
