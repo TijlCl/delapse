@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\DTO\ChallengeUserDTO;
 use App\Models\Challenge;
 use App\Models\ChallengeUser;
 use Carbon\Carbon;
@@ -29,5 +30,14 @@ class ChallengeUserRepository extends BaseRepository
             ->where('user_id', $userId)
             ->where('invalid_at', '>=', Carbon::now())
             ->get();
+    }
+
+    public function completeChallenge(ChallengeUserDTO $challengeUserDTO)
+    {
+        ChallengeUser::where('id', $challengeUserDTO->id)->update([
+            'description' => $challengeUserDTO->description,
+            'image' => $challengeUserDTO->image,
+            'completed_at' => $challengeUserDTO->completedAt,
+        ]);
     }
 }
