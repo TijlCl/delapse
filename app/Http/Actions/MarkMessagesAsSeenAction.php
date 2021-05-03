@@ -8,7 +8,7 @@ use App\Http\Repositories\ChatRepository;
 use App\Http\Repositories\MessageRepository;
 use App\Http\Repositories\UserRepository;
 
-class AddMessageToChatAction
+class MarkMessagesAsSeenAction
 {
     /**
      * @var MessageRepository
@@ -26,9 +26,8 @@ class AddMessageToChatAction
     /**
      * @param ChatMesssageDTO $chatMesssageDTO
      */
-    public function execute(ChatMesssageDTO $chatMesssageDTO)
+    public function execute(int $fromId)
     {
-        $message = $this->messageRepository->createNewMessage($chatMesssageDTO);
-        event(new NewMessageEvent($chatMesssageDTO, $message->id));
+        $this->messageRepository->markAsReadByUser($fromId);
     }
 }

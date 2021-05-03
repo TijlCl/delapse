@@ -19,7 +19,8 @@ class MessageResource extends JsonResource
             'body' => $this->body,
             'from' => $this->from_id,
             'to' => $this->to_id,
-            'isSender' => Auth::id() === $this->from_id
+            'isSender' => Auth::id() === $this->from_id,
+            'isUnread' => $this->isUnread
         ];
     }
 }
