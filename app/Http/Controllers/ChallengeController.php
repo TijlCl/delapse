@@ -72,6 +72,8 @@ class ChallengeController extends Controller
             'completed_at' => Carbon::now()
         ]);
 
-        $this->challengeUserRepository->completeChallenge($challengeUserDTO);
+        $challenge = $this->challengeUserRepository->completeChallenge($challengeUserDTO);
+
+        return new ChallengeUserResource($challenge);
     }
 }
