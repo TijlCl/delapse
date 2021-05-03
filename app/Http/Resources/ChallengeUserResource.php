@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,6 +19,7 @@ class ChallengeUserResource extends JsonResource
         return [
             'id' => $this->id,
             'completed' => $this->getIsCompletedAttribute(),
+            'completed_at' => $this->completed_at == null ? $this->completed_at : Carbon::make($this->completed_at)->format('d/m/Y'),
             'description' => $this->description,
             'image' => $this->image == null ? $this->image : Storage::disk('public')->url($this->image ?? null),
             'challenge' => new ChallengeResource($this->challenge),
