@@ -3,12 +3,11 @@
 namespace App\Http\Middleware;
 
 use App\Models\ChallengeUser;
-use App\Models\Event;
+use Carbon\Carbon;
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ChallengeUserOwnership
+class ChallengeValid
 {
     /**
      * Handle an incoming request.
@@ -21,7 +20,7 @@ class ChallengeUserOwnership
     {
         $challengeUser = ChallengeUser::where('id', $request->challenge_user)->first();
 
-        if($challengeUser == null || $challengeUser['user_id'] !== Auth::id()){
+        if($challengeUser == null || $challengeUser['invalid_at'] < Carbon::now()){
             return response()->json(['error' => 'Forbidden.'], 403);
         }
 

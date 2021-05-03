@@ -21,7 +21,7 @@ class EventOwnership
         $event = Event::where('id', $request->event)->first();
 
         if($event == null || $event['user_id'] !== Auth::id()){
-            return back()->withInput();
+            return response()->json(['error' => 'Forbidden.'], 403);
         }
 
         return $next($request);

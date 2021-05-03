@@ -22,6 +22,7 @@ class ChallengeController extends Controller
     {
         // middleware
         $this->middleware('challenge_user_ownership')->only(['show', 'completeChallenge']);
+        $this->middleware('challenge_valid')->only(['completeChallenge']);
 
         $this->challengeUserRepository = $challengeUserRepository;
         $this->storeFileAction = $storeFileAction;
