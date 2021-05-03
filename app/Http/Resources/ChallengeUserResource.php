@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ChallengeUserResource extends JsonResource
 {
@@ -18,7 +19,7 @@ class ChallengeUserResource extends JsonResource
             'id' => $this->id,
             'completed' => $this->getIsCompletedAttribute(),
             'description' => $this->description,
-            'image' => $this->image,
+            'image' => $this->image == null ? $this->image : Storage::disk('public')->url($this->image ?? null),
             'challenge' => new ChallengeResource($this->challenge),
         ];
     }

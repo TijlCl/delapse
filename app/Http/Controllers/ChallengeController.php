@@ -48,6 +48,17 @@ class ChallengeController extends Controller
         return ChallengeUserResource::collection($challenges);
     }
 
+    public function getCompletedChallenges(Request $request)
+    {
+        $challenges = $this->challengeUserRepository->getCompletedChallenges(Auth::id(), ['challenge.image']);
+
+        return ChallengeUserResource::collection($challenges);
+    }
+
+    /**
+     * @param CompleteChallengeRequest $request
+     * @param int $challengeUserId
+     */
     public function completeChallenge(CompleteChallengeRequest $request, int $challengeUserId)
     {
         if ($request->hasFile('image')){

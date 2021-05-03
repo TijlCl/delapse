@@ -37,9 +37,10 @@ Route::prefix('/v1')->group(function () {
         ]);
 
         Route::get('challenges/active', 'ChallengeController@getActiveChallenges');
+        Route::get('challenges/completed', 'ChallengeController@getCompletedChallenges');
         Route::get('challenge-user/{challenge_user}', 'ChallengeController@show');
         Route::post('challenge-user/{challenge_user}/complete', 'ChallengeController@completeChallenge');
-        
+
         Route::get('users/getByUsername', 'UserController@getByUsername');
         Route::resource('users', 'UserController')->only(['show']);
     });
