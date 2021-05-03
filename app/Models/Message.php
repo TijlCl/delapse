@@ -41,4 +41,9 @@ class Message extends Model
     {
         return $this->belongsTo(Chat::class);
     }
+
+    public function getIsUnreadAttribute()
+    {
+        return is_null($this->seen_at);
+    }
 }

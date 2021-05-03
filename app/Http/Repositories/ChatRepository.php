@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\DTO\ChatDTO;
 use App\Http\DTO\ChatMesssageDTO;
 use App\Models\Chat;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,5 +37,14 @@ class ChatRepository extends BaseRepository
                 $query->where('secondary_user_id', $userId)
                     ->orWhere('secondary_user_id', $contactId);
             })->first();
+    }
+
+    public function createChat(ChatDTO $chatDTO): Model
+    {
+        $chat = new Chat();
+        $chat->primaryUser()->associate($chatDTO->primaryUser);
+        $chat->primaryUser()->associate($chatDTO->secondaryUser);
+        $chat->save();
+        return $chat;
     }
 }

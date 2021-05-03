@@ -14,15 +14,17 @@ class NewMessageEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private $message;
+    private $messageId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(ChatMesssageDTO $chatMesssageDTO)
+    public function __construct(ChatMesssageDTO $chatMesssageDTO, int $messageId)
     {
         $this->message = $chatMesssageDTO;
+        $this->messageId = $messageId;
     }
 
     /**
@@ -39,6 +41,7 @@ class NewMessageEvent implements ShouldBroadcast
     {
         return [
             'message' => [
+                'id'            => $this->messageId,
                 'body'            => $this->message->body,
             ]
         ];
