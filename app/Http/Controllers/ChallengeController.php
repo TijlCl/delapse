@@ -22,6 +22,7 @@ class ChallengeController extends Controller
     {
         // middleware
         $this->middleware('challenge_user_ownership')->only(['show', 'completeChallenge']);
+        $this->middleware('challenge_valid')->only(['completeChallenge']);
 
         $this->challengeUserRepository = $challengeUserRepository;
         $this->storeFileAction = $storeFileAction;
@@ -48,6 +49,17 @@ class ChallengeController extends Controller
         return ChallengeUserResource::collection($challenges);
     }
 
+    public function getCompletedChallenges(Request $request)
+    {
+        $challenges = $this->challengeUserRepository->getCompletedChallenges(Auth::id(), ['challenge.image']);
+
+        return ChallengeUserResource::collection($challenges);
+    }
+
+    /**
+     * @param CompleteChallengeRequest $request
+     * @param int $challengeUserId
+     */
     public function completeChallenge(CompleteChallengeRequest $request, int $challengeUserId)
     {
         if ($request->hasFile('image')){
@@ -60,6 +72,8 @@ class ChallengeController extends Controller
             'completed_at' => Carbon::now()
         ]);
 
-        $this->challengeUserRepository->completeChallenge($challengeUserDTO);
+        $challenge = $this->challengeUserRepository->completeChallenge($challengeUserDTO);
+
+        return new ChallengeUserResource($challenge);
     }
 }

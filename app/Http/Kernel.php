@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'event_ownership' => \App\Http\Middleware\EventOwnership::class,
         'challenge_user_ownership' => \App\Http\Middleware\ChallengeUserOwnership::class,
+        'challenge_valid' => \App\Http\Middleware\ChallengeValid::class,
     ];
 }

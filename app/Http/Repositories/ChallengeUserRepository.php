@@ -32,12 +32,40 @@ class ChallengeUserRepository extends BaseRepository
             ->get();
     }
 
+    /**
+     * @param int $userId
+     * @param array $with
+     * @return Collection
+     */
+    public function getCompletedChallenges(int $userId, array $with = []): Collection
+    {
+        return ChallengeUser::with($with)
+            ->where('user_id', $userId)
+            ->where('completed_at', '!=', null)
+            ->get();
+    }
+
+    /**
+     * @param ChallengeUserDTO $challengeUserDTO
+     */
     public function completeChallenge(ChallengeUserDTO $challengeUserDTO)
     {
-        ChallengeUser::where('id', $challengeUserDTO->id)->update([
+        /*ChallengeUser::where('id', $challengeUserDTO->id)->update([
+            'description' => $challengeUserDTO->description,
+            'image' => $challengeUserDTO->image,
+            'completed_at' => $challengeUserDTO->completedAt,
+        ]);*/
+
+        $challengeUser = $this->find($challengeUserDTO->id);
+
+        $challengeUser->fill([
             'description' => $challengeUserDTO->description,
             'image' => $challengeUserDTO->image,
             'completed_at' => $challengeUserDTO->completedAt,
         ]);
+
+        $challengeUser->save();
+
+        return $challengeUser;
     }
 }
