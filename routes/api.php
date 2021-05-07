@@ -27,6 +27,9 @@ Route::prefix('/v1')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::put('chats/message-read/{messageId}', 'ChatController@markMessageAsRead');
         Route::resource('chats', 'ChatController')->only(['show']);
+        Route::post('chat-groups/{chatId}/send', 'ChatGroupController@sendMessage');
+        Route::post('chat-groups/{chatId}/addUser', 'ChatGroupController@addUser');
+        Route::resource('chat-groups', 'ChatGroupController')->only(['index', 'show', 'store']);
         Route::post('chats/{chat}/send', 'ChatController@sendMessage');
 
         Route::resource('friends', 'FriendController')->only(['index']);
