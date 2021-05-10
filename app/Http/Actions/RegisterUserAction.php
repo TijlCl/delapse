@@ -3,6 +3,7 @@ namespace App\Http\Actions;
 
 use App\Http\DTO\RegisterUserDTO;
 use App\Http\Repositories\UserRepository;
+use App\Models\Setting;
 
 class RegisterUserAction
 {
@@ -24,6 +25,8 @@ class RegisterUserAction
      */
     public function execute(RegisterUserDTO $registerUserDTO)
     {
-        $this->userRepository->create($registerUserDTO->toArray());
+        $user = $this->userRepository->create($registerUserDTO->toArray());
+
+        $user->setting()->save(new Setting);
     }
 }

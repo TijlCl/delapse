@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
+        'phone_number',
     ];
 
     /**
@@ -94,6 +97,14 @@ class User extends Authenticatable
     public function achievements()
     {
         return $this->hasMany(Achievement::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function setting()
+    {
+        return $this->hasOne(Setting::class);
     }
 
     /**
