@@ -19,6 +19,7 @@ class StoreFileAction
         $absoluteFilePath = $folderPath . $md5Name.'.'.$guessExtension;
 
         $file->storeAs($folderPath, $md5Name.'.'.$guessExtension  ,'public');
+        //Storage::putFileAs($folderPath, $file, $md5Name.'.'.$guessExtension, 'public');
         return $absoluteFilePath;
     }
 }

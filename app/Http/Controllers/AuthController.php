@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -55,6 +56,11 @@ class AuthController extends Controller
      */
     public function user() :JsonResponse
     {
-        return response()->json(['user' => auth()->user()]);
+        $user = auth()->user();
+        if ($user['image']) {
+            $user['image'] = Storage::disk('public')->url($user['image']);
+        }
+
+        return response()->json(compact('user'));
     }
 }

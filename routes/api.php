@@ -48,6 +48,8 @@ Route::prefix('/v1')->group(function () {
         Route::get('users/getByUsername', 'UserController@getByUsername');
         Route::post('users/request/{friendId}', 'UserController@friendRequest');
         Route::resource('users', 'UserController')->only(['show']);
+
+        Route::post('user-settings/change-profile-picture', 'UserController@changeProfilePicture');
     });
 });
 

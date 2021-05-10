@@ -36,4 +36,11 @@ class UserRepository extends BaseRepository
             ->where('id', '<>', Auth::id())
             ->get();
     }
+
+    public function updateProfilePicture(int $userId, string $path)
+    {
+        User::where('id', $userId)->update([
+                'image' => $path
+            ]);
+    }
 }
