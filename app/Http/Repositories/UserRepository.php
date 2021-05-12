@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Http\DTO\UserDTO;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +43,27 @@ class UserRepository extends BaseRepository
         User::where('id', $userId)->update([
                 'image' => $path
             ]);
+    }
+
+    /**
+     * @param UserDTO $DTO
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function update(UserDTO $DTO)
+    {
+        $user = $this->find($DTO->id);
+
+        $user->fill([
+            'name' => $DTO->name,
+            'phone_number' => $DTO->phoneNumber,
+        ]);
+
+        if ($DTO->image){
+            $user->image;
+        }
+
+        $user->save();
+
+        return $user;
     }
 }

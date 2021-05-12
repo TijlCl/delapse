@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Actions\RequestFriendAction;
 use App\Http\Actions\StoreFileAction;
+use App\Http\DTO\UserDTO;
 use App\Http\Repositories\UserRepository;
 use App\Http\Requests\ChangeProfilePictureRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -70,6 +72,23 @@ class UserController extends Controller
         $this->userRepository->updateProfilePicture(Auth::id(), $imagePath);
 
         return Storage::disk('public')->url($imagePath);
+    }
+
+    /**
+     * @param UpdateUserRequest $request
+     */
+    public function update(UpdateUserRequest $request)
+    {
+        // store new profile picture
+        if ($request->hasFile('image')) {
+            $imagePath = $this->storeFileAction->execute($request->file('image'), 'profile_pictures/');
+        }
+
+        // update user
+        $userDTO = new UserDTO($request->all() + ['image' => $imagePath ?? null]);
+        $user = $this->userRepository->update($userDTO);
+
+        return new UserResource($user) ;
     }
 
 }
