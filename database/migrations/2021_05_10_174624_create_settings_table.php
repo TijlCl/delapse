@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->boolean('enable_location')->default(false);
-            $table->boolean('apply_as_sponsor')->default(false);
+            $table->boolean('sponsor')->default(false);
             $table->boolean('public_gallery')->default(false);
             $table->boolean('emergency_contact')->default(false);
             $table->timestamps();

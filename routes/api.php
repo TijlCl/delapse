@@ -52,6 +52,7 @@ Route::prefix('/v1')->group(function () {
         Route::post('user-settings/change-profile-picture', 'UserController@changeProfilePicture');
         Route::post('user-settings/update-user', 'UserController@update');
 
+        Route::put('user-settings/update-settings', 'SettingsController@update');
         Route::resource('user-settings', 'SettingsController')->only(['index']);
     });
 });

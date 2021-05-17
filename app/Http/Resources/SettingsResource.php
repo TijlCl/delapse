@@ -17,10 +17,10 @@ class SettingsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'enable_location' => $this->enable_location,
-            'apply_as_sponsor' => $this->apply_as_sponsor,
-            'public_gallery' => $this->public_gallery,
-            'emergency_contact' => $this->emergency_contact,
+            'enableLocation' => boolval($this->enable_location),
+            'sponsor' => boolval($this->sponsor),
+            'publicGallery' => boolval($this->public_gallery),
+            'emergencyContact' => boolval($this->emergency_contact),
         ];
     }
 }

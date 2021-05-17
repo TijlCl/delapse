@@ -88,7 +88,7 @@ class UserController extends Controller
         $userDTO = new UserDTO($request->all() + ['image' => $imagePath ?? null]);
         $user = $this->userRepository->update($userDTO);
 
-        return new UserResource($user) ;
+        return new UserResource($user);
     }
 
 }

@@ -12,7 +12,7 @@ class Setting extends Model
 
     protected $fillable = [
         'enable_location',
-        'apply_as_sponsor',
+        'sponsor',
         'public_gallery',
         'emergency_contact',
     ];
