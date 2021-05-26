@@ -11,7 +11,7 @@ class ReportDTO extends DataTransferObject
     public int $reporter;
     public int $userId;
     public string $reason;
-    public string $description;
+    public ?string $description;
 
 
     /**
