@@ -108,6 +108,22 @@ class User extends Authenticatable
     }
 
     /**
+     * @return hasMany
+     */
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    /**
+     * @return hasMany
+     */
+    public function reportsSend()
+    {
+        return $this->hasMany(Report::class,'reporter_id', 'user_id');
+    }
+
+    /**
      * @return bool
      */
     public function getIsFriendAttribute()

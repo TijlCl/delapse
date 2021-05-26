@@ -47,6 +47,7 @@ Route::prefix('/v1')->group(function () {
 
         Route::get('users/getByUsername', 'UserController@getByUsername');
         Route::post('users/request/{friendId}', 'UserController@friendRequest');
+        Route::post('users/report/{user}', 'UserController@reportUser');
         Route::resource('users', 'UserController')->only(['show']);
 
         Route::post('user-settings/change-profile-picture', 'UserController@changeProfilePicture');

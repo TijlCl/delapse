@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Actions\RequestFriendAction;
 use App\Http\Actions\StoreFileAction;
+use App\Http\DTO\ReportDTO;
 use App\Http\DTO\UserDTO;
+use App\Http\Repositories\ReportRepository;
 use App\Http\Repositories\UserRepository;
 use App\Http\Requests\ChangeProfilePictureRequest;
+use App\Http\Requests\ReportUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
@@ -20,20 +23,24 @@ class UserController extends Controller
 {
 
     private UserRepository $userRepository;
+    private ReportRepository $reportRepository;
     private RequestFriendAction $requestFriendAction;
     private StoreFileAction $storeFileAction;
 
     /**
      * UserController constructor.
      * @param UserRepository $userRepository
+     * @param ReportRepository $reportRepository
      * @param RequestFriendAction $requestFriendAction
      * @param StoreFileAction $storeFileAction
      */
     public function __construct(UserRepository $userRepository,
+                                ReportRepository $reportRepository,
                                 RequestFriendAction $requestFriendAction,
                                 StoreFileAction $storeFileAction)
     {
         $this->userRepository = $userRepository;
+        $this->reportRepository = $reportRepository;
         $this->requestFriendAction = $requestFriendAction;
         $this->storeFileAction = $storeFileAction;
     }
@@ -89,6 +96,13 @@ class UserController extends Controller
         $user = $this->userRepository->update($userDTO);
 
         return new UserResource($user);
+    }
+
+    public function reportUser(ReportUserRequest $request, int $userId)
+    {
+        $reportDTO = new ReportDTO($request->all() + ['user_id' => $userId]);
+
+        $this->reportRepository->createReport($reportDTO);
     }
 
 }
