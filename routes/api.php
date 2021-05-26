@@ -55,6 +55,9 @@ Route::prefix('/v1')->group(function () {
 
         Route::put('user-settings/update-settings', 'SettingsController@update');
         Route::resource('user-settings', 'SettingsController')->only(['index']);
+
+        Route::get('check-ins/weekly', 'CheckInController@weekly');
+        Route::resource('check-ins', 'CheckInController')->only(['store']);
     });
 });
 
