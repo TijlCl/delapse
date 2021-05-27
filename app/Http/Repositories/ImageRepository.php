@@ -18,6 +18,6 @@ class ImageRepository extends BaseRepository
 
     public function getRandom()
     {
-        return Image::inRandomOrder()->first();
+        return Image::where('event_image', true)->inRandomOrder()->first();
     }
 }

@@ -22,6 +22,7 @@ class ChallengeUserResource extends JsonResource
             'completed_at' => $this->completed_at == null ? $this->completed_at : Carbon::make($this->completed_at)->format('d/m/Y'),
             'description' => $this->description,
             'image' => $this->image == null ? $this->image : Storage::disk('public')->url($this->image ?? null),
+            'invalid_at' => $this->invalid_at,
             'challenge' => new ChallengeResource($this->challenge),
         ];
     }
