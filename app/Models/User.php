@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,7 +82,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return belongsToMany
      */
     public function challenges()
     {
@@ -92,11 +93,12 @@ class User extends Authenticatable
     }
 
     /**
-     * @return HasMany
+     * @return belongsToMany
      */
     public function achievements()
     {
-        return $this->hasMany(Achievement::class);
+        return $this->belongsToMany(Achievement::class, 'achievement_user')
+            ->withTimestamps();
     }
 
     /**
@@ -121,6 +123,14 @@ class User extends Authenticatable
     public function reportsSend()
     {
         return $this->hasMany(Report::class,'reporter_id', 'user_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function soberCounter()
+    {
+        return $this->hasOne(SoberCounter::class);
     }
 
     /**
