@@ -27,6 +27,11 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'days_clean' => ['required', 'integer', 'min:0', 'max:36500'],
+            'enable_location' => ['required', 'boolean'],
+            'sponsor' => ['required', 'boolean'],
+            'public_gallery' => ['required', 'boolean'],
+            'emergency_contact' => ['required', 'boolean'],
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Actions\RegisterUserAction;
 use App\Http\DTO\RegisterUserDTO;
+use App\Http\DTO\SettingsDTO;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +34,7 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request) :JsonResponse
     {
-        $this->registerUserAction->execute(new RegisterUserDTO($request->all()));
+        $this->registerUserAction->execute(new RegisterUserDTO($request->all()), new SettingsDTO($request->all()), $request['days_clean']);
         return response()->json([
             'message' => 'User registered successfully'
         ]);
