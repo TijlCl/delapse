@@ -17,9 +17,17 @@ class Image extends Model
     /**
      * @return HasMany
      */
-    public function user()
+    public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class);
     }
 
 }
