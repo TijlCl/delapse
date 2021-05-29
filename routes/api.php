@@ -58,6 +58,7 @@ Route::prefix('/v1')->group(function () {
 
         Route::get('check-ins/weekly', 'CheckInController@weekly');
         Route::resource('check-ins', 'CheckInController')->only(['store']);
+        Route::get('days-clean', 'SoberCounterController@index');
     });
 });
 
