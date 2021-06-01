@@ -15,7 +15,7 @@ class CreateAchievementsTable extends Migration
     {
         Schema::create('achievements', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->foreignId('image_id')->constrained();
             $table->string('title');
             $table->integer('days_required');
             $table->timestamps();

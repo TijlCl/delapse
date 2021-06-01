@@ -27,7 +27,7 @@ class AchievementController extends Controller
      */
     public function index(Request $request)
     {
-        $achievements = $this->achievementRepository->getByUser(Auth::id());
+        $achievements = $this->achievementRepository->getByUser(Auth::id(), ['image']);
         return AchievementResource::collection($achievements);
     }
 }

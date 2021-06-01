@@ -13,7 +13,6 @@ class Achievement extends Model
 
     protected $fillable = [
         'title',
-        'image'
     ];
 
     /**
@@ -24,5 +23,13 @@ class Achievement extends Model
     {
         return $this->belongsToMany(User::class, 'achievement_user')
             ->withTimestamps();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
     }
 }

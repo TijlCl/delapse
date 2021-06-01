@@ -17,7 +17,7 @@ class AchievementResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'image' => $this->image,
+            'image' => $this->image->name,
         ];
     }
 }

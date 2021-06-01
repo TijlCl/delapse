@@ -19,4 +19,9 @@ class SoberCounterRepository extends BaseRepository
     {
         return SoberCounter::with($with)->where('days_clean', $daysClean)->get();
     }
+
+    public function getByUser(int $userId, array $with = [])
+    {
+        return SoberCounter::with($with)->where('user_id', $userId)->first();
+    }
 }
