@@ -57,7 +57,7 @@ Route::prefix('/v1')->group(function () {
         Route::resource('user-settings', 'SettingsController')->only(['index']);
 
         Route::get('check-ins/weekly', 'CheckInController@weekly');
-        Route::resource('check-ins', 'CheckInController')->only(['store']);
+        Route::resource('check-ins', 'CheckInController')->only(['index', 'store']);
     });
 });
 

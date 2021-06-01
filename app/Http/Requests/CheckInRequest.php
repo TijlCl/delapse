@@ -28,9 +28,9 @@ class CheckInRequest extends FormRequest
     {
         $rules = [
             'mood' => 'required|string',
-            'description' => 'string',
+            'description' => 'string|nullable',
             'emoji' => 'required|string',
-            'tags' => 'array',
+            'tags' => 'array|nullable',
         ];
 
         return $rules;

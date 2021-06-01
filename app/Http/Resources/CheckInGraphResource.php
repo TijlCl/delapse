@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
-class CheckInResource extends JsonResource
+class CheckInGraphResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,9 @@ class CheckInResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'mood' => $this->mood,
-            'emoji' => $this->emoji,
-            'description' => $this->description,
-            'tags' => $this->tags,
-            'date' => $this->created_at->format('l jS \\of F')
+            'total' => $this['total_check_ins'],
+            'moods' => $this['mood_counts'],
+            'checkIns' => CheckInResource::collection($this['check_ins'])
         ];
     }
 }

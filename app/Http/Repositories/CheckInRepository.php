@@ -3,12 +3,9 @@
 namespace App\Http\Repositories;
 
 use App\Http\DTO\CheckInDTO;
-use App\Http\DTO\SettingsDTO;
 use App\Models\CheckIn;
-use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class CheckInRepository extends BaseRepository
 {
@@ -28,6 +25,18 @@ class CheckInRepository extends BaseRepository
     public function findByUserId(int $userId): CheckIn
     {
         return CheckIn::where('user_id', $userId)->first();
+    }
+
+    /**
+     * @param int $userId
+     * @return Collection
+     */
+    public function getAll(int $userId, Carbon $from, Carbon $to): Collection
+    {
+        return CheckIn::where('user_id', $userId)
+            ->whereBetween('created_at', [$from, $to])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function newCheckIn(int $userId, CheckInDTO $DTO): CheckIn
