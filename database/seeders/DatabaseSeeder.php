@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ImageSeeder::class,
             ChallengeSeeder::class,
+            AchievementSeeder::class,
         ]);
     }
 }

@@ -17,7 +17,7 @@ class CreateAchievementsTable extends Migration
             $table->id();
             $table->foreignId('image_id')->constrained();
             $table->string('title');
-            $table->integer('days_required');
+            $table->integer('days_required')->nullable();
             $table->timestamps();
         });
     }
