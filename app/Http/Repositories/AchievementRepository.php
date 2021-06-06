@@ -29,4 +29,28 @@ class AchievementRepository extends BaseRepository
             })
             ->get();
     }
+
+    /**
+     * @param string $title
+     * @param array $with
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public function getByTitle(string $title, array $with = [])
+    {
+        return Achievement::with($with)
+            ->where('title', $title)
+            ->first();
+    }
+
+    /**
+     * @param int $days
+     * @param array $with
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getBelowDaysRequired(int $days, array $with = [])
+    {
+        return Achievement::with($with)
+            ->where('days_required', '<=' , $days)
+            ->get();
+    }
 }
