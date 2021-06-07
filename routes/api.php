@@ -60,6 +60,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('check-ins/weekly', 'CheckInController@weekly');
         Route::resource('check-ins', 'CheckInController')->only(['index', 'store']);
         Route::get('days-clean', 'SoberCounterController@index');
+        Route::put('days-clean/relapsed', 'SoberCounterController@resetCounter');
         Route::get('days-clean/user/{user}', 'SoberCounterController@getByUser');
     });
 });

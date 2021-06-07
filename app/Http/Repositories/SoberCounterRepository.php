@@ -24,4 +24,9 @@ class SoberCounterRepository extends BaseRepository
     {
         return SoberCounter::with($with)->where('user_id', $userId)->first();
     }
+
+    public function setDaysClean(int $userId, int $daysClean)
+    {
+        SoberCounter::where('user_id', $userId)->update(['days_clean' => $daysClean]);
+    }
 }

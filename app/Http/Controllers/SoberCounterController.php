@@ -32,4 +32,9 @@ class SoberCounterController extends Controller
 
         return $soberCounter['days_clean'];
     }
+
+    public function resetCounter()
+    {
+        $this->soberCounterRepository->setDaysClean(Auth::id(), 0);
+    }
 }
