@@ -34,6 +34,7 @@ Route::prefix('/v1')->group(function () {
 
         Route::resource('friends', 'FriendController')->only(['index']);
         Route::resource('achievements', 'AchievementController')->only(['index']);
+        Route::get('achievements/user/{user}', 'AchievementController@getByUser');
 
 
         Route::resource('/events', 'EventController')->only([
@@ -59,6 +60,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('check-ins/weekly', 'CheckInController@weekly');
         Route::resource('check-ins', 'CheckInController')->only(['index', 'store']);
         Route::get('days-clean', 'SoberCounterController@index');
+        Route::get('days-clean/user/{user}', 'SoberCounterController@getByUser');
     });
 });
 

@@ -25,4 +25,11 @@ class SoberCounterController extends Controller
 
         return $soberCounter['days_clean'];
     }
+
+    public function getByUser(int $userId)
+    {
+        $soberCounter = $this->soberCounterRepository->getByUser($userId);
+
+        return $soberCounter['days_clean'];
+    }
 }

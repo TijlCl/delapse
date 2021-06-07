@@ -30,4 +30,15 @@ class AchievementController extends Controller
         $achievements = $this->achievementRepository->getByUser(Auth::id(), ['image']);
         return AchievementResource::collection($achievements);
     }
+
+    /**
+     * @param Request $request
+     * @param int $userId
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getByUser(Request $request, int $userId)
+    {
+        $achievements = $this->achievementRepository->getByUser($userId, ['image']);
+        return AchievementResource::collection($achievements);
+    }
 }
