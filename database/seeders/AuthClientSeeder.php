@@ -22,7 +22,7 @@ class AuthClientSeeder extends Seeder
             'redirect' => 'http://localhost',
             'personal_access_client' => 0,
             'password_client' => 1,
-            'ª' => 0,
+            'revoked' => 0,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
