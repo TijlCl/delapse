@@ -2,6 +2,7 @@
 namespace App\Http\Actions;
 
 
+use App\Events\FriendAcceptedEvent;
 use App\Http\DTO\ChatDTO;
 use App\Http\DTO\FriendDTO;
 use App\Http\Repositories\ChatRepository;
@@ -28,7 +29,7 @@ class AcceptFriendAction
      */
     public function execute(int $friendId)
     {
-        DB::transaction(function ($friendId) {
+        return DB::transaction(function () use ($friendId) {
             //create chat record
             $chatDTO = new ChatDTO(Auth::id(), $friendId);
             $chat = $this->chatRepository->createChat($chatDTO);
@@ -39,7 +40,11 @@ class AcceptFriendAction
             $this->friendRepository->acceptRequest($friend, $chat->id);
             //Make the inverse record
             $friendDTO = new FriendDTO($friendId, Auth::id(), $chat->id);
-            $this->friendRepository->createInverse($friendDTO);
+            $friend = $this->friendRepository->createInverse($friendDTO);
+            $friend->load(['user', 'friend', 'chat']);
+
+            event(new FriendAcceptedEvent($friend, $friendId));
+            return $friend;
         });
     }
 }

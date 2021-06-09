@@ -25,6 +25,14 @@ Broadcast::channel('message.{to}', function ($user, int $to) {
     return $user->id === $to;
 });
 
+Broadcast::channel('friend-request.{to}', function ($user, int $to) {
+    return $user->id === $to;
+});
+
+Broadcast::channel('friend-accepted.{to}', function ($user, int $to) {
+    return $user->id === $to;
+});
+
 Broadcast::channel('group-message.{chatId}', function ($user, int $chatId) {
     return \App\Models\ChatGroup::where('id', $chatId)->whereHas('users', function ($query) use ($user) {
         $query->where('users.id', '=', $user->id);

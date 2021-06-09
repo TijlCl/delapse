@@ -27,6 +27,21 @@ class FriendRepository extends BaseRepository
     {
         return Friend::with($with)
             ->where('user_id', $userId)
+            ->whereNotNull('accepted_at')
+            ->get();
+    }
+
+
+    /**
+     * @param int $userId
+     * @param array $with
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getFriendRequestsOfUser(int $userId, array $with = ['user'])
+    {
+        return Friend::with($with)
+            ->where('friend_id', $userId)
+            ->whereNull('accepted_at')
             ->get();
     }
 
@@ -38,7 +53,7 @@ class FriendRepository extends BaseRepository
      */
     public function findByFriendAndUser(int $userId, int $friendId, array $with = []): Friend
     {
-        return Friend::whith($with)
+        return Friend::with($with)
             ->where('user_id', $userId)
             ->where('friend_id', $friendId)
             ->first();

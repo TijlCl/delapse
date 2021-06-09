@@ -43,7 +43,7 @@ class ChatRepository extends BaseRepository
     {
         $chat = new Chat();
         $chat->primaryUser()->associate($chatDTO->primaryUser);
-        $chat->primaryUser()->associate($chatDTO->secondaryUser);
+        $chat->secondaryUser()->associate($chatDTO->secondaryUser);
         $chat->save();
         return $chat;
     }

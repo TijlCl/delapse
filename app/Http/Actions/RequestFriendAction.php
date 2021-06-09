@@ -2,6 +2,7 @@
 namespace App\Http\Actions;
 
 
+use App\Events\NewFriendRequestEvent;
 use App\Http\DTO\FriendDTO;
 use App\Http\Repositories\FriendRepository;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ class RequestFriendAction
     {
         //create friend record
         $friendDTO = new FriendDTO($friendId, Auth::id());
+        event(new NewFriendRequestEvent(Auth::User(), $friendId));
         return $this->friendRepository->request($friendDTO);
     }
 }

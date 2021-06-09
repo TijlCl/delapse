@@ -32,9 +32,11 @@ Route::prefix('/v1')->group(function () {
         Route::resource('chat-groups', 'ChatGroupController')->only(['index', 'show', 'store']);
         Route::post('chats/{chat}/send', 'ChatController@sendMessage');
 
+        Route::get('friends/requests', 'FriendController@requests');
+        Route::post('friends/accept/{friendId}', 'FriendController@accept');
         Route::resource('friends', 'FriendController')->only(['index']);
-        Route::resource('achievements', 'AchievementController')->only(['index']);
         Route::get('achievements/user/{user}', 'AchievementController@getByUser');
+        Route::resource('achievements', 'AchievementController')->only(['index']);
 
 
         Route::resource('/events', 'EventController')->only([
