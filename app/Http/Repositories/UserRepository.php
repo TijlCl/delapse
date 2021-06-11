@@ -66,4 +66,21 @@ class UserRepository extends BaseRepository
 
         return $user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHelpUsers(int $userId)
+    {
+        return User::where('id', '<>', $userId)
+            ->whereDoesntHave('friends', function ($query) use ($userId) {
+                $query->where('friends.friend_id', '=', $userId);
+            })
+            ->whereHas('setting', function ($query) {
+            $query->where('emergency_contact', '=', 1);
+        })
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+    }
 }

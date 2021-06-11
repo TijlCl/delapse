@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Actions\RequestFriendAction;
+use App\Http\Actions\RequestHelpAction;
 use App\Http\Actions\StoreFileAction;
 use App\Http\DTO\ReportDTO;
 use App\Http\DTO\UserDTO;
@@ -25,6 +26,7 @@ class UserController extends Controller
     private UserRepository $userRepository;
     private ReportRepository $reportRepository;
     private RequestFriendAction $requestFriendAction;
+    private RequestHelpAction $requestHelpAction;
     private StoreFileAction $storeFileAction;
 
     /**
@@ -37,12 +39,14 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository,
                                 ReportRepository $reportRepository,
                                 RequestFriendAction $requestFriendAction,
-                                StoreFileAction $storeFileAction)
+                                StoreFileAction $storeFileAction,
+                                RequestHelpAction $requestHelpAction)
     {
         $this->userRepository = $userRepository;
         $this->reportRepository = $reportRepository;
         $this->requestFriendAction = $requestFriendAction;
         $this->storeFileAction = $storeFileAction;
+        $this->requestHelpAction = $requestHelpAction;
     }
 
     public function show(Request $request, int $userId)
@@ -105,4 +109,9 @@ class UserController extends Controller
         $this->reportRepository->createReport($reportDTO);
     }
 
+    public function help(Request $request)
+    {
+        $this->requestHelpAction->execute();
+        return new JsonResource(['message' => 'success']);
+    }
 }

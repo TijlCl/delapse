@@ -49,6 +49,7 @@ Route::prefix('/v1')->group(function () {
         Route::post('challenge-user/{challenge_user}/complete', 'ChallengeController@completeChallenge');
 
         Route::get('users/getByUsername', 'UserController@getByUsername');
+        Route::post('users/help', 'UserController@help');
         Route::post('users/request/{friendId}', 'UserController@friendRequest');
         Route::post('users/report/{user}', 'UserController@reportUser');
         Route::resource('users', 'UserController')->only(['show']);
