@@ -39,18 +39,29 @@ body{
     border: 0 solid #e2e8f0;
 
     font-size: 100%;
-    margin: 60% auto 0 auto;
+    margin: 32vh auto 0 auto;
 }
 
-@media only screen and (min-height: 812px) {
+@media only screen and (min-height: 1024px) {
     .button {
-        margin-top: 70%;
+        font-size: 150%;
     }
 }
 
 @media only screen and (min-height: 1024px) {
     .button {
-        margin-top: 50%;
         font-size: 150%;
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .button {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .button {
+        width: 40%;
     }
 }
