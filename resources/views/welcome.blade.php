@@ -11,9 +11,7 @@
     <body>
 
     <div class="background">
-        <form method="GET" action="{{ route('dowbload-delapse-app') }}">
-            <button class="button" ref="button"><span>Download now!</span></button>
-        </form>
+        <a href="{{ asset('Delapse.apk') }}" class="button" ><span>Download now!</span></a>
     </div>
 
     </body>

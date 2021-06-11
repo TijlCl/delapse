@@ -12,7 +12,7 @@ class DelapseAppController extends Controller
         $delapseAPK = public_path(). "/Delapse.apk";
 
         $headers = [
-            'Content-Type' => 'application/pdf',
+            'Content-Type' => 'application/vnd.android.package-archive',
         ];
 
         return response()->download($delapseAPK, 'Delapse.apk', $headers);
