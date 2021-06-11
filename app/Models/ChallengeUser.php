@@ -30,7 +30,7 @@ class ChallengeUser extends Pivot
     {
         parent::boot();
         self::creating(function ($challengeUser) {
-            $challengeUser->invalid_at = Carbon::now()->addWeek();
+            $challengeUser->invalid_at = Carbon::now()->endOfWeek();
 		});
     }
 

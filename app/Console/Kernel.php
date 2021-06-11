@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->job(new UsersWeeklyChallengesJob)->weekly();
+        $schedule->job(new UsersWeeklyChallengesJob)->weeklyOn(1, '0:00');
         $schedule->job(new IncrementDaysCleanJob)->daily();
     }
 

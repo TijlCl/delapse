@@ -4,6 +4,7 @@ namespace App\Http\Actions;
 use App\Http\DTO\RegisterUserDTO;
 use App\Http\DTO\SettingsDTO;
 use App\Http\Repositories\AchievementRepository;
+use App\Http\Repositories\ChallengeRepository;
 use App\Http\Repositories\SettingsRepository;
 use App\Http\Repositories\UserRepository;
 use App\Models\Setting;
@@ -17,22 +18,26 @@ class RegisterUserAction
     private UserRepository $userRepository;
     private SettingsRepository $settingsRepository;
     private AchievementRepository $achievementRepository;
+    private ChallengeRepository $challengeRepository;
     private AddRegisterUserAchievementsAction $addRegisterUserAchievementsAction;
 
     /**
      * @param UserRepository $userRepository
      * @param SettingsRepository $settingsRepository
      * @param AchievementRepository $achievementRepository
+     * @param ChallengeRepository $challengeRepository
      * @param AddRegisterUserAchievementsAction $addRegisterUserAchievementsAction
      */
     public function __construct(UserRepository $userRepository,
                                 SettingsRepository $settingsRepository,
                                 AchievementRepository $achievementRepository,
+                                ChallengeRepository $challengeRepository,
                                 AddRegisterUserAchievementsAction $addRegisterUserAchievementsAction)
     {
         $this->userRepository = $userRepository;
         $this->settingsRepository = $settingsRepository;
         $this->achievementRepository = $achievementRepository;
+        $this->challengeRepository = $challengeRepository;
         $this->addRegisterUserAchievementsAction = $addRegisterUserAchievementsAction;
     }
 
@@ -67,5 +72,11 @@ class RegisterUserAction
         $user->achievements()->attach($firstAchievement);
 
         $this->addRegisterUserAchievementsAction->execute($user, $daysClean);
+
+        // give user challenges
+
+        $weeklyChallenges = $this->challengeRepository->getRandomWeeklyChallenges($user['id']);
+
+        $this->userRepository->addWeeklyChallenges($user, $weeklyChallenges);
     }
 }
