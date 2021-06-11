@@ -41,6 +41,7 @@ class FriendRepository extends BaseRepository
     {
         return Friend::with($with)
             ->where('friend_id', $userId)
+            ->where('is_help', '=', 0)
             ->whereNull('accepted_at')
             ->get();
     }
@@ -63,9 +64,11 @@ class FriendRepository extends BaseRepository
      * @param FriendDTO $friendDTO
      * @return Friend
      */
-    public function request(FriendDTO $friendDTO)
+    public function request(FriendDTO $friendDTO, bool $isHelp = false)
     {
-        $friend = new Friend();
+        $friend = new Friend([
+            'is_help' => $isHelp
+        ]);
         $friend->user()->associate($friendDTO->userId);
         $friend->friend()->associate($friendDTO->friendId);
         $friend->save();

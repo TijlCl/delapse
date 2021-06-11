@@ -29,6 +29,10 @@ Broadcast::channel('friend-request.{to}', function ($user, int $to) {
     return $user->id === $to;
 });
 
+Broadcast::channel('help-request.{to}', function ($user, int $to) {
+    return $user->id === $to;
+});
+
 Broadcast::channel('friend-accepted.{to}', function ($user, int $to) {
     return $user->id === $to;
 });

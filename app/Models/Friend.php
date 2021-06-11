@@ -11,7 +11,8 @@ class Friend extends Model
     use HasFactory;
 
     protected $fillable = [
-        'accepted_at'
+        'accepted_at',
+        'is_help'
     ];
 
     /**

@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             ChallengeSeeder::class,
             AchievementSeeder::class,
             AuthClientSeeder::class,
+            TestUserSeeder::class,
+            CheckInUserSeeder::class,
             ChallengeUserSeeder::class,
         ]);
     }
