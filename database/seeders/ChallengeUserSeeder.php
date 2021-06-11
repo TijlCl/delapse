@@ -9,7 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class ªChallengeUserSeeder extends Seeder
+class ChallengeUserSeeder extends Seeder
 {
 
     private $challengeRepository;
