@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', 'TestController@test')->name('test');
+
+Route::get('/download-delapse-app', 'DelapseAppController@downloadAPK')->name('dowbload-delapse-app');
