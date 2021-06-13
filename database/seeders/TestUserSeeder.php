@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Http\Actions\AddRegisterUserAchievementsAction;
+use App\Http\Repositories\AchievementRepository;
 use App\Models\Challenge;
 use App\Models\Image;
 use App\Models\Setting;
+use App\Models\SoberCounter;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -12,6 +15,15 @@ use Illuminate\Support\Facades\Hash;
 
 class TestUserSeeder extends Seeder
 {
+    private AchievementRepository $achievementRepository;
+    private AddRegisterUserAchievementsAction $addRegisterUserAchievementsAction;
+
+    public function __construct(AchievementRepository $achievementRepository, AddRegisterUserAchievementsAction $addRegisterUserAchievementsAction)
+    {
+        $this->achievementRepository = $achievementRepository;
+        $this->addRegisterUserAchievementsAction = $addRegisterUserAchievementsAction;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -40,5 +52,22 @@ class TestUserSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ]
         ]);
+
+        $daysClean = 150;
+
+        SoberCounter::insert([
+            [
+                'user_id' => 1,
+                'days_clean' => $daysClean
+            ]
+        ]);
+
+        $user = User::where('id', 1)->first();
+
+        // add user achievements
+        $firstAchievement = $this->achievementRepository->getByTitle('Start your delapse journey!');
+        $user->achievements()->attach($firstAchievement);
+
+        $this->addRegisterUserAchievementsAction->execute($user, $daysClean);
     }
 }
